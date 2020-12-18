@@ -7,7 +7,7 @@ import java.io.RandomAccessFile;
 import java.sql.*;
 import java.util.LinkedList;
 
-public class DriverMySQL8Database implements IDriverArquivo{
+public class DriverMySQL8Database implements IDriverArquivo {
 	
 	private static File file = new File( "pontuacao.txt" );
 	private final  String SEPARADOR_CAMPOS = "!";
@@ -128,6 +128,18 @@ public class DriverMySQL8Database implements IDriverArquivo{
 
 		//Get a Statement object
 		stmt = con.createStatement();
+	}
+
+	@Override
+	public void persisteDadosNoArquivo(PontuacaoUsuarios p) throws Exception, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deletarArquivo() throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
