@@ -7,20 +7,20 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.LinkedList;
 
-public class DriverArquivoTXT {
+public class DriverArquivoTXT implements IDriverArquivo {
 	
 	private static File file = new File( "pontuacao.txt" );
 	private final  String SEPARADOR_CAMPOS = "!";
 	
-	public DriverArquivoTXT (boolean deletarArquivoTXT) throws Exception {
+	public DriverArquivoTXT (boolean deletarArquivo) throws Exception {
 		
-		if (deletarArquivoTXT) {
+		if (deletarArquivo) {
 			
-			deletarArquivoTXT();
+			deleteArquivo();
 		}
 	}
 	
-	public LinkedList<PontuacaoUsuarios> cargaEmCacheApartirArquivoTXT() throws Exception {
+	public LinkedList<PontuacaoUsuarios> cargaEmCacheApartirArquivo() throws Exception {
 		
 		LinkedList<PontuacaoUsuarios> _pontuacaoCache = new LinkedList<PontuacaoUsuarios>();
 		try {
@@ -52,7 +52,7 @@ public class DriverArquivoTXT {
 		return _pontuacaoCache; 
 	}
  
-	public void persisteDadosNoArquivoTXT(PontuacaoUsuarios p) throws Exception, IOException {		
+	public void persisteDadosNoArquivo(PontuacaoUsuarios p) throws Exception, IOException {		
 		try { 
 			File file = new File("pontuacao.txt"); 
 			
@@ -74,7 +74,8 @@ public class DriverArquivoTXT {
 		} 
     }
 
-	public void deletarArquivoTXT() throws Exception {
+	public void deleteArquivo() throws Exception {
+
 		if (file.exists() ) {
 			  System.out.println("\n size = " + (int) file.length() + " path= " + file.getAbsolutePath() );
 			  if(file.delete()) 

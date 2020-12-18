@@ -3,9 +3,6 @@ package courseraita;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.lang.reflect.Array;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -18,7 +15,7 @@ public class Armazenamento implements IArmazenamento {
 	public Armazenamento (DriverArquivoTXT d) throws Exception, IOException  {
 
 		driveTXT = d;		
-		_pontuacaoUsuarios = driveTXT.cargaEmCacheApartirArquivoTXT();	
+		_pontuacaoUsuarios = driveTXT.cargaEmCacheApartirArquivo();	
 		
 		if ( _pontuacaoUsuarios.size() != 0) {
 			
@@ -44,13 +41,13 @@ public class Armazenamento implements IArmazenamento {
 			
 			_diferentesTiposDePontos.add (p._tipoPonto);
 		
-		driveTXT.persisteDadosNoArquivoTXT(p);		
+		driveTXT.persisteDadosNoArquivo(p);		
 	}
 
 	@Override
 	public HashSet<String> retornarTiposDePontosJaRegistrados() throws Exception {		
 		
-		driveTXT.cargaEmCacheApartirArquivoTXT();
+		driveTXT.cargaEmCacheApartirArquivo();
 		
 		return _diferentesTiposDePontos;
 	}
@@ -59,7 +56,7 @@ public class Armazenamento implements IArmazenamento {
 	public LinkedList<PontuacaoUsuarios> retornarUsuariosComAlgumTipodePonto() 
 			                                                         throws Exception {
 		
-		driveTXT.cargaEmCacheApartirArquivoTXT();
+		driveTXT.cargaEmCacheApartirArquivo();
 		
 		if (_pontuacaoUsuarios.isEmpty())
 			
@@ -72,10 +69,10 @@ public class Armazenamento implements IArmazenamento {
 	public int recuperarTotaisDePontosDeUmTipoDeUmUsuario(
 			                    String tipoPonto, String usuario) throws Exception {
 		
-		driveTXT.cargaEmCacheApartirArquivoTXT();
+		driveTXT.cargaEmCacheApartirArquivo();
 		
 		if (_pontuacaoUsuarios.isEmpty())
-			driveTXT.cargaEmCacheApartirArquivoTXT();
+			driveTXT.cargaEmCacheApartirArquivo();
 		
 		int _totalPontos = 0;
 		boolean usuarioNaoEncontrado = true;	
