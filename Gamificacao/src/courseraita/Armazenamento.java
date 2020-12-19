@@ -7,14 +7,14 @@ import java.util.LinkedList;
 
 public class Armazenamento implements IArmazenamento {
 
-	private static DriverArquivoTXT driveTXT;	
+	private static IDriverArquivo driverArq;	
 	private static LinkedList<PontuacaoUsuarios> _pontuacaoUsuarios = new LinkedList<PontuacaoUsuarios>();
 	private static HashSet<String> _diferentesTiposDePontos = new HashSet<String>();
 
-	public Armazenamento (DriverArquivoTXT d) throws Exception, IOException  {
+	public Armazenamento (IDriverArquivo d) throws Exception, IOException  {
 
-		driveTXT = d;		
-		_pontuacaoUsuarios = driveTXT.cargaEmCacheApartirArquivo();	
+		driverArq = d;		
+		_pontuacaoUsuarios = driverArq.cargaEmCacheApartirArquivo();	
 		
 		if ( _pontuacaoUsuarios.size() != 0) {
 			
@@ -40,13 +40,13 @@ public class Armazenamento implements IArmazenamento {
 			
 			_diferentesTiposDePontos.add (p._tipoPonto);
 		
-		driveTXT.persisteDadosNoArquivo(p);		
+		driverArq.persisteDadosNoArquivo(p);		
 	}
 
 	@Override
 	public HashSet<String> retornarTiposDePontosJaRegistrados() throws Exception {		
 		
-		driveTXT.cargaEmCacheApartirArquivo();
+		driverArq.cargaEmCacheApartirArquivo();
 		
 		return _diferentesTiposDePontos;
 	}
@@ -55,7 +55,7 @@ public class Armazenamento implements IArmazenamento {
 	public LinkedList<PontuacaoUsuarios> retornarUsuariosComAlgumTipodePonto() 
 			                                                         throws Exception {
 		
-		driveTXT.cargaEmCacheApartirArquivo();
+		driverArq.cargaEmCacheApartirArquivo();
 		
 		if (_pontuacaoUsuarios.isEmpty())
 			
@@ -68,10 +68,10 @@ public class Armazenamento implements IArmazenamento {
 	public int recuperarTotaisDePontosDeUmTipoDeUmUsuario(
 			                    String tipoPonto, String usuario) throws Exception {
 		
-		driveTXT.cargaEmCacheApartirArquivo();
+		driverArq.cargaEmCacheApartirArquivo();
 		
 		if (_pontuacaoUsuarios.isEmpty())
-			driveTXT.cargaEmCacheApartirArquivo();
+			driverArq.cargaEmCacheApartirArquivo();
 		
 		int _totalPontos = 0;
 		boolean usuarioNaoEncontrado = true;	

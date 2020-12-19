@@ -28,6 +28,7 @@ public class DriverMySQL8Database implements IDriverArquivo {
 		}
 	}
 
+	@Override
 	public LinkedList<PontuacaoUsuarios> cargaEmCacheApartirArquivo() throws Exception {
 		
 		preparaConexaoComDatabase();	
@@ -62,7 +63,8 @@ public class DriverMySQL8Database implements IDriverArquivo {
 		return _pontuacaoCache; 
 	}
  
-	public void persisteDadosNoArquivoTXT(PontuacaoUsuarios p) throws Exception, IOException {		
+	@Override
+	public void persisteDadosNoArquivo(PontuacaoUsuarios p) throws Exception, IOException {		
 		try { 
 			preparaConexaoComDatabase();	
 			File file = new File("pontuacao.txt"); 
@@ -88,6 +90,7 @@ public class DriverMySQL8Database implements IDriverArquivo {
 		} 
     }
 	
+	@Override
 	public void deleteArquivo() throws Exception {
 		emptyTablePontuacao();
 	}
@@ -115,7 +118,7 @@ public class DriverMySQL8Database implements IDriverArquivo {
 			throws ClassNotFoundException, SQLException {
 
 		//Register the JDBC driver for MySQL.
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");  
 
 		//Define URL of database server
 		String url = "jdbc:mysql://localhost:3306/sakila";
@@ -128,18 +131,6 @@ public class DriverMySQL8Database implements IDriverArquivo {
 
 		//Get a Statement object
 		stmt = con.createStatement();
-	}
-
-	@Override
-	public void persisteDadosNoArquivo(PontuacaoUsuarios p) throws Exception, IOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deletarArquivo() throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

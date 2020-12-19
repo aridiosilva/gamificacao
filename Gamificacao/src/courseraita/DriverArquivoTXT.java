@@ -20,6 +20,7 @@ public class DriverArquivoTXT implements IDriverArquivo {
 		}
 	}
 	
+	@Override
 	public LinkedList<PontuacaoUsuarios> cargaEmCacheApartirArquivo() throws Exception {
 		
 		LinkedList<PontuacaoUsuarios> _pontuacaoCache = new LinkedList<PontuacaoUsuarios>();
@@ -52,6 +53,7 @@ public class DriverArquivoTXT implements IDriverArquivo {
 		return _pontuacaoCache; 
 	}
  
+	@Override
 	public void persisteDadosNoArquivo(PontuacaoUsuarios p) throws Exception, IOException {		
 		try { 
 			File file = new File("pontuacao.txt"); 
@@ -74,6 +76,7 @@ public class DriverArquivoTXT implements IDriverArquivo {
 		} 
     }
 
+	@Override
 	public void deleteArquivo() throws Exception {
 
 		if (file.exists() ) {

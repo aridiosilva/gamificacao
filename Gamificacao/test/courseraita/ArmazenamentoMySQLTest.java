@@ -10,9 +10,9 @@ import org.junit.runners.MethodSorters;
 public class ArmazenamentoMySQLTest {
 	
 	@Test
-	void testSet001() {
+	void testSet001() throws Exception {
 		
-		DriverMySQL8Database _driver =  new DriverMySQL8Database(true); 
+		IDriverArquivo _driver = new DriverMySQL8Database(true); 
 		Armazenamento _a = new Armazenamento(_driver);
 		
 	}

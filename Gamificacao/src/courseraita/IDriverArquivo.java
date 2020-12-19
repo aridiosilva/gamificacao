@@ -9,6 +9,6 @@ public interface IDriverArquivo {
 	
 	public void persisteDadosNoArquivo(PontuacaoUsuarios p) throws Exception, IOException;
 	
-	public void deletarArquivo() throws Exception;
+	public void deleteArquivo() throws Exception;
 	
 }
