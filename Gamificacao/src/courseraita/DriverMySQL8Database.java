@@ -1,20 +1,16 @@
 package courseraita;
 
-import java.io.EOFException;
-import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.sql.*;
 import java.util.LinkedList;
 
 public class DriverMySQL8Database implements IDriverArquivo {
 	
-	private static File file = new File( "pontuacao.txt" );
-	private final  String SEPARADOR_CAMPOS = "!";
-	
-	Statement stmt;
-	ResultSet rs;
-	Connection con;
+	private Statement stmt;
+	private ResultSet rs;
+	private Connection con;
+	private DatabaseMetaData md;
+	private ResultSetMetaData rm; 
 	
 	public DriverMySQL8Database (boolean deletarFile) throws Exception {
 		
@@ -31,31 +27,27 @@ public class DriverMySQL8Database implements IDriverArquivo {
 	@Override
 	public LinkedList<PontuacaoUsuarios> cargaEmCacheApartirArquivo() throws Exception {
 		
-		preparaConexaoComDatabase();	
 		LinkedList<PontuacaoUsuarios> _pontuacaoCache = new LinkedList<PontuacaoUsuarios>();
 		try {
-			if (file.exists()) { 
-				
-				RandomAccessFile fileTXT = new RandomAccessFile(file, "rw");				
-				String bufferLeitura; 
-				
-				while (fileTXT.getFilePointer() < fileTXT.length()) { 
-					
-					bufferLeitura = fileTXT.readLine(); 
-					String[] splits = bufferLeitura.split("!");
-					_pontuacaoCache.add(new PontuacaoUsuarios (splits[0], splits[1] , Integer.parseInt(splits[2] )));
-				} 
+			preparaConexaoComDatabase();
+			veSeTabelaPontuacaoJaExiste();
 			
-				con.close();
+			String sqlSelectCmd = "SELECT * FROM pontuacao ORDER BY regID ASC";
+			rs = stmt.executeQuery(sqlSelectCmd);
+			int numRegsLidos = 0;
+			while (rs.next() ) {
+				
+				_pontuacaoCache.add(new PontuacaoUsuarios(
+						rs.getString(1), rs.getString(2), 
+						Integer.parseInt(rs.getString(3))));
+				
+				numRegsLidos++;
 			}
-			else System.out.println(" Tabela Pontuacao VAZIA do Database MySQL - Nada a colocar em CACHE!!!"); 
+			con.close();
+			if (numRegsLidos == 0)
+				System.out.println(" Tabela Pontuacao VAZIA do Database MySQL - Nada a colocar em CACHE!!!"); 
 		} 
-		catch (EOFException ex) 
-		{ 
-			ex.printStackTrace(); 
-			throw new Exception ("EOF da Tabela Pontuacao do Database MySQL");
-		} 		
-		catch (IOException ex) 
+		catch (SQLException ex) 
 		{ 
 			ex.printStackTrace(); 
 			throw new Exception ("Problema em I/o na Tabela Pontuacao Database MySQL");
@@ -64,29 +56,21 @@ public class DriverMySQL8Database implements IDriverArquivo {
 	}
  
 	@Override
-	public void persisteDadosNoArquivo(PontuacaoUsuarios p) throws Exception, IOException {		
+	public void persisteDadosNoArquivo(PontuacaoUsuarios p) 
+			         throws SQLException, ClassNotFoundException {		
 		try { 
-			preparaConexaoComDatabase();	
-			File file = new File("pontuacao.txt"); 
-			
-			if (!file.exists()) { 
-				file.createNewFile(); 
-			} 
-			
-			RandomAccessFile fileTXT = new RandomAccessFile(file, "rw"); 
-			String buffeGravacao = p.getUsuario() + SEPARADOR_CAMPOS + p.getTipoPonto() 
-			                       + SEPARADOR_CAMPOS + String.valueOf(p.getPontos() + SEPARADOR_CAMPOS);
-			
-			fileTXT.seek(fileTXT.length());
-			fileTXT.writeBytes(buffeGravacao); 
-			fileTXT.writeBytes(System.lineSeparator()); 
-			fileTXT.close(); 
-
-			
+			preparaConexaoComDatabase();			
+			veSeTabelaPontuacaoJaExiste();
+			String sqlCmdInsercaoNoDatabase = 
+					"INSERT INTO pontuacao(usuario,tipoPonto, numPontos) VALUES (" +
+					p.getUsuario() + "," + p.getTipoPonto() + "," +
+					String.valueOf(p.getPontos()) + ")";
+			stmt.executeUpdate(sqlCmdInsercaoNoDatabase);
 			con.close();
 		} 
-		catch (IOException ioe) { 
+		catch (SQLException ioe) { 
 			System.out.println(ioe); 
+			System.out.println("problema em persistir a nova pontuacao no Database");
 		} 
     }
 	
@@ -94,43 +78,93 @@ public class DriverMySQL8Database implements IDriverArquivo {
 	public void deleteArquivo() throws Exception {
 		emptyTablePontuacao();
 	}
+	
+	private void veSeTabelaPontuacaoJaExiste() {
+		try{
+			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS pontuacao (" +
+					"regId      INT UNSIGNED NOT NULL AUTO_INCREMENT," +
+					"usuario    CHAR(25) NOT NULL," +
+					"tipoPontos CHAR(25) NOT NULL," +
+					"numPontos  CHAR(10) NOT NULL, " +
+					"PRIMARY KEY (regId),");			
+			con.close();
+			
+		} catch (Exception e){			
+		
+			System.out.print(e);
+			System.out.println("problema na Criação da tabela de pontuacao");
+		}		
+	}
 
 	private void emptyTablePontuacao() throws Exception {
 		try{
 			preparaConexaoComDatabase();	
-			stmt.executeUpdate("DROP TABLE pontuacao");		
-			stmt.executeUpdate(
-			     	"CREATE TABLE pontuacao(regId int unsigned auto_increment," +
-				    "usuario char(15) not null, "+
-			     	"tipoPonto char (15) not nul," +
-				    "numPontos char(15) not null)");			
-			System.out.println("Tabela Pontuacao Esvaziada por DROP e CREATE");
+			stmt.executeUpdate("TRUNCATE TABLE pontuacao");		
+			System.out.println("Tabela Pontuacao Esvaziada por TRUNCATE");
 			con.close();
 			
-		} catch (Exception e){
-			
+		} catch (Exception e){			
 			System.out.print(e);
-			System.out.println("problema no DROP e/ou CREATE da tabela de pontuacao");
+			System.out.println("problema no TRUNCATE da tabela de pontuacao");
 		}
 	}
 
+	private void getSomeMetaDataDoDatabase() throws SQLException {
+		
+		 // get the metadata
+		 md = con.getMetaData();  
+		 
+		 // ask some questions
+		 System.out.println("DatabaseProductName: " +  md.getDatabaseProductName() );
+		 System.out.println("DatabaseProductVersion(: " +  md.getDatabaseProductVersion());
+		 System.out.println("DriverName: " +  md.getDriverName());
+		 System.out.println("URL: " +  md.getURL());
+		 System.out.println("UserName: " +  md.getUserName());
+		 System.out.println("AlterTableWithAddColumn: " +  md.supportsAlterTableWithAddColumn());
+		 System.out.println("AlterTableWithDropColumn: " +  md.supportsAlterTableWithDropColumn());
+		 System.out.println("ANSI92FullSQL: " +  md.supportsANSI92FullSQL());
+		 System.out.println("BatchUpdates: " +  md.supportsBatchUpdates());
+		 System.out.println("MixedCaseIdentifiers: " +  md.supportsMixedCaseIdentifiers());
+		 System.out.println("MultipleTransactions: " +  md.supportsMultipleTransactions());
+		 System.out.println("PositionedDelete: " +  md.supportsPositionedDelete());
+		 System.out.println("PositionedUpdate: " +   md.supportsPositionedUpdate());
+		 System.out.println("SchemasInDataManipulation: " +  md.supportsSchemasInDataManipulation());
+		 System.out.println("Transactions: " +  md.supportsTransactions());
+		 System.out.println("ResultSetType..TYPE_SCROLL_INSENSITIVE: " +  md.supportsResultSetType(ResultSet.TYPE_SCROLL_INSENSITIVE));
+		 System.out.println("ResultSet.TYPE_SCROLL_SENSITIVE: " +  md.supportsResultSetType(ResultSet.TYPE_SCROLL_SENSITIVE));
+		 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.insertsAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
+		 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.updatesAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
+		 rm = (ResultSetMetaData) con.getMetaData();
+		 int cc = rm.getColumnCount();                  // number of columns
+	     for (int i = 1; i <= cc; i++)  {               // i-th column
+	    	 System.out.println('\n'+ rm.getColumnName(i));           // - name
+	    	 System.out.println(" " + rm.getColumnDisplaySize(i));    // - size
+	    	 System.out.println(" " + rm.getColumnClassName(i));      // - Jaca class name
+	    	 System.out.println(" " + rm.getColumnType(i));           // - SQL type
+	    	 System.out.println(" " + rm.getColumnTypeName(i));       // - RDBMS type
+	     }
+	}
+	
 	private void preparaConexaoComDatabase ()
 			throws ClassNotFoundException, SQLException {
 
 		//Register the JDBC driver for MySQL.
 		Class.forName("com.mysql.cj.jdbc.Driver");  
 
-		//Define URL of database server
-		String url = "jdbc:mysql://localhost:3306/sakila";
+		String urlDatabaseServer = "jdbc:mysql://localhost:3306/sakila?useTimezone=true&serverTimezone=UTC";
 
-		//Get connection to database for user root and no password
-		Connection con = DriverManager.getConnection(url,"root", "");
+		//Get connection to database
+		String pw = "";		
+		con = DriverManager.getConnection(urlDatabaseServer,"root", pw);
 
-		//Display URL and connection information
-		System.out.println("URL: " + url + "Connection: " + con);
+		// Mostra a URL e Conexão com o Database
+		System.out.println("URL: " + urlDatabaseServer + "Connection: " + con);
 
 		//Get a Statement object
 		stmt = con.createStatement();
+		
+		getSomeMetaDataDoDatabase();
+		
 	}
 
 }
