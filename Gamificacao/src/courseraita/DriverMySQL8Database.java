@@ -10,6 +10,7 @@ public class DriverMySQL8Database implements IDriverArquivo {
 	private ResultSet rs;
 	private Connection con;
 	private DatabaseMetaData md;
+	private static boolean firstTime = true;
 	
 	public DriverMySQL8Database (boolean deletarFile) throws Exception {
 		
@@ -65,9 +66,14 @@ public class DriverMySQL8Database implements IDriverArquivo {
 			// INSERT	INTO pontuacao (usuario, tipoPontos, numPontos) VALUES ("maria","sobrevida","30");
 			
 			String sqlCmdInsercaoNoDatabase = 
-					"INSERT INTO pontuacao (usuario,tipoPontos, numPontos) VALUES (" +
-					p.getUsuario() + "," + p.getTipoPonto() + "," +
-					String.valueOf(p.getPontos()) + ")";
+					"INSERT INTO pontuacao (usuario,tipoPontos,numPontos) VALUES ('" +
+					p.getUsuario() + "','" + p.getTipoPonto() + "','" +
+					String.valueOf(p.getPontos()) + "')";
+			
+			System.out.println("===> " + "INSERT INTO pontuacao (usuario,tipoPontos, numPontos) VALUES ('" +
+					p.getUsuario() + "','" + p.getTipoPonto() + "','" +
+					String.valueOf(p.getPontos()) + "')");
+			
 			stmt.executeUpdate(sqlCmdInsercaoNoDatabase);
 			con.close();
 		} 
@@ -82,17 +88,18 @@ public class DriverMySQL8Database implements IDriverArquivo {
 		emptyTablePontuacao();
 	}
 	
-	private void veSeTabelaPontuacaoJaExiste() {
+	private void veSeTabelaPontuacaoJaExiste() throws SQLException {
 		try{
-			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS pontuacao (" +
-					"regId      INT UNSIGNED NOT NULL AUTO_INCREMENT," +
+			String sqlCmdCreate =
+					"CREATE TABLE IF NOT EXISTS pontuacao (" +
+					"regId      INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY," +
 					"usuario    CHAR(25) NOT NULL," +
 					"tipoPontos CHAR(25) NOT NULL," +
-					"numPontos  CHAR(10) NOT NULL, " +
-					"PRIMARY KEY (regId),");			
-			con.close();
-			
-		} catch (Exception e){			
+					"numPontos  CHAR(10) NOT NULL," +
+					"PRIMARY KEY (regID))";			
+			stmt.executeUpdate(sqlCmdCreate);
+
+		} catch (SQLException e){			
 		
 			System.out.print(e);
 			System.out.println("problema na Criação da tabela de pontuacao");
@@ -114,38 +121,45 @@ public class DriverMySQL8Database implements IDriverArquivo {
 
 	private void getSomeMetaDataDoDatabase() throws SQLException {
 		
-		 // get the metadata
-		 md = con.getMetaData();  
-		 
-		 // ask some questions
-		 System.out.println("DatabaseProductName: " +  md.getDatabaseProductName() );
-		 System.out.println("DatabaseProductVersion(: " +  md.getDatabaseProductVersion());
-		 System.out.println("DriverName: " +  md.getDriverName());
-		 System.out.println("URL: " +  md.getURL());
-		 System.out.println("UserName: " +  md.getUserName());
-		 System.out.println("AlterTableWithAddColumn: " +  md.supportsAlterTableWithAddColumn());
-		 System.out.println("AlterTableWithDropColumn: " +  md.supportsAlterTableWithDropColumn());
-		 System.out.println("ANSI92FullSQL: " +  md.supportsANSI92FullSQL());
-		 System.out.println("BatchUpdates: " +  md.supportsBatchUpdates());
-		 System.out.println("MixedCaseIdentifiers: " +  md.supportsMixedCaseIdentifiers());
-		 System.out.println("MultipleTransactions: " +  md.supportsMultipleTransactions());
-		 System.out.println("PositionedDelete: " +  md.supportsPositionedDelete());
-		 System.out.println("PositionedUpdate: " +   md.supportsPositionedUpdate());
-		 System.out.println("SchemasInDataManipulation: " +  md.supportsSchemasInDataManipulation());
-		 System.out.println("Transactions: " +  md.supportsTransactions());
-		 System.out.println("ResultSetType..TYPE_SCROLL_INSENSITIVE: " +  md.supportsResultSetType(ResultSet.TYPE_SCROLL_INSENSITIVE));
-		 System.out.println("ResultSet.TYPE_SCROLL_SENSITIVE: " +  md.supportsResultSetType(ResultSet.TYPE_SCROLL_SENSITIVE));
-		 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.insertsAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
-		 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.updatesAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
-//		 rm = con.getSchema();
-//		 int cc = rm.getColumnCount();                  // number of columns
-//	     for (int i = 1; i <= cc; i++)  {               // i-th column
-//	    	 System.out.println('\n'+ rm.getColumnName(i));           // - name
-//	    	 System.out.println(" " + rm.getColumnDisplaySize(i));    // - size
-//	    	 System.out.println(" " + rm.getColumnClassName(i));      // - Jaca class name
-//	    	 System.out.println(" " + rm.getColumnType(i));           // - SQL type
-//	    	 System.out.println(" " + rm.getColumnTypeName(i));       // - RDBMS type
-//	     }
+		if (firstTime) {
+			
+			firstTime = false;
+			
+			 // get the metadata
+			 md = con.getMetaData();  
+			 
+			 // ask some questions
+			 System.out.println("DatabaseProductName: " +  md.getDatabaseProductName() );
+			 System.out.println("DatabaseProductVersion(: " +  md.getDatabaseProductVersion());
+			 System.out.println("DriverName: " +  md.getDriverName());
+			 System.out.println("URL: " +  md.getURL());
+			 System.out.println("UserName: " +  md.getUserName());
+			 System.out.println("AlterTableWithAddColumn: " +  md.supportsAlterTableWithAddColumn());
+			 System.out.println("AlterTableWithDropColumn: " +  md.supportsAlterTableWithDropColumn());
+			 System.out.println("ANSI92FullSQL: " +  md.supportsANSI92FullSQL());
+			 System.out.println("BatchUpdates: " +  md.supportsBatchUpdates());
+			 System.out.println("MixedCaseIdentifiers: " +  md.supportsMixedCaseIdentifiers());
+			 System.out.println("MultipleTransactions: " +  md.supportsMultipleTransactions());
+			 System.out.println("PositionedDelete: " +  md.supportsPositionedDelete());
+			 System.out.println("PositionedUpdate: " +   md.supportsPositionedUpdate());
+			 System.out.println("SchemasInDataManipulation: " +  md.supportsSchemasInDataManipulation());
+			 System.out.println("Transactions: " +  md.supportsTransactions());
+			 System.out.println("ResultSetType..TYPE_SCROLL_INSENSITIVE: " +  md.supportsResultSetType(ResultSet.TYPE_SCROLL_INSENSITIVE));
+			 System.out.println("ResultSet.TYPE_SCROLL_SENSITIVE: " +  md.supportsResultSetType(ResultSet.TYPE_SCROLL_SENSITIVE));
+			 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.insertsAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
+			 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.updatesAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
+//			 rm = con.getSchema();
+//			 int cc = rm.getColumnCount();                  // number of columns
+//		     for (int i = 1; i <= cc; i++)  {               // i-th column
+//		    	 System.out.println('\n'+ rm.getColumnName(i));           // - name
+//		    	 System.out.println(" " + rm.getColumnDisplaySize(i));    // - size
+//		    	 System.out.println(" " + rm.getColumnClassName(i));      // - Jaca class name
+//		    	 System.out.println(" " + rm.getColumnType(i));           // - SQL type
+//		    	 System.out.println(" " + rm.getColumnTypeName(i));       // - RDBMS type
+//		     }			
+		}
+		
+
 	}
 	
 	private void preparaConexaoComDatabase ()
