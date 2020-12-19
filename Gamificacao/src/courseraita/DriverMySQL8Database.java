@@ -10,7 +10,6 @@ public class DriverMySQL8Database implements IDriverArquivo {
 	private ResultSet rs;
 	private Connection con;
 	private DatabaseMetaData md;
-	private ResultSetMetaData rm; 
 	
 	public DriverMySQL8Database (boolean deletarFile) throws Exception {
 		
@@ -37,9 +36,10 @@ public class DriverMySQL8Database implements IDriverArquivo {
 			int numRegsLidos = 0;
 			while (rs.next() ) {
 				
-				_pontuacaoCache.add(new PontuacaoUsuarios(
-						rs.getString(1), rs.getString(2), 
-						Integer.parseInt(rs.getString(3))));
+				_pontuacaoCache.add(new PontuacaoUsuarios( 
+						rs.getNString("usuario"),
+						rs.getNString("tipoPontos"),
+						Integer.parseInt(rs.getNString("numPontos"))));
 				
 				numRegsLidos++;
 			}
@@ -61,8 +61,11 @@ public class DriverMySQL8Database implements IDriverArquivo {
 		try { 
 			preparaConexaoComDatabase();			
 			veSeTabelaPontuacaoJaExiste();
+			
+			// INSERT	INTO pontuacao (usuario, tipoPontos, numPontos) VALUES ("maria","sobrevida","30");
+			
 			String sqlCmdInsercaoNoDatabase = 
-					"INSERT INTO pontuacao(usuario,tipoPonto, numPontos) VALUES (" +
+					"INSERT INTO pontuacao (usuario,tipoPontos, numPontos) VALUES (" +
 					p.getUsuario() + "," + p.getTipoPonto() + "," +
 					String.valueOf(p.getPontos()) + ")";
 			stmt.executeUpdate(sqlCmdInsercaoNoDatabase);
@@ -134,15 +137,15 @@ public class DriverMySQL8Database implements IDriverArquivo {
 		 System.out.println("ResultSet.TYPE_SCROLL_SENSITIVE: " +  md.supportsResultSetType(ResultSet.TYPE_SCROLL_SENSITIVE));
 		 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.insertsAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
 		 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.updatesAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
-		 rm = (ResultSetMetaData) con.getMetaData();
-		 int cc = rm.getColumnCount();                  // number of columns
-	     for (int i = 1; i <= cc; i++)  {               // i-th column
-	    	 System.out.println('\n'+ rm.getColumnName(i));           // - name
-	    	 System.out.println(" " + rm.getColumnDisplaySize(i));    // - size
-	    	 System.out.println(" " + rm.getColumnClassName(i));      // - Jaca class name
-	    	 System.out.println(" " + rm.getColumnType(i));           // - SQL type
-	    	 System.out.println(" " + rm.getColumnTypeName(i));       // - RDBMS type
-	     }
+//		 rm = con.getSchema();
+//		 int cc = rm.getColumnCount();                  // number of columns
+//	     for (int i = 1; i <= cc; i++)  {               // i-th column
+//	    	 System.out.println('\n'+ rm.getColumnName(i));           // - name
+//	    	 System.out.println(" " + rm.getColumnDisplaySize(i));    // - size
+//	    	 System.out.println(" " + rm.getColumnClassName(i));      // - Jaca class name
+//	    	 System.out.println(" " + rm.getColumnType(i));           // - SQL type
+//	    	 System.out.println(" " + rm.getColumnTypeName(i));       // - RDBMS type
+//	     }
 	}
 	
 	private void preparaConexaoComDatabase ()

@@ -12,8 +12,12 @@ public class ArmazenamentoMySQLTest {
 	@Test
 	void testSet001() throws Exception {
 		
-		IDriverArquivo _driver = new DriverMySQL8Database(true); 
+		IDriverArquivo _driver = new DriverMySQL8Database(false); 
 		Armazenamento _a = new Armazenamento(_driver);
+		
+		_a.armazenarPontuacaoDeUmUsuario(new PontuacaoUsuarios("joana", "estrela",    50));
+//		_a.armazenarPontuacaoDeUmUsuario(new PontuacaoUsuarios("joana", "estrela",    50));
+//		_a.armazenarPontuacaoDeUmUsuario(new PontuacaoUsuarios("joana", "comentarios",80));
 		
 	}
 
