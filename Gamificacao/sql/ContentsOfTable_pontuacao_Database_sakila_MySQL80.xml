@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+
+<resultset statement="SELECT * FROM pontuacao
+LIMIT 0, 1000
+"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<row>
+		<field name="regId">1</field>
+		<field name="usuario">joana</field>
+		<field name="tipoPontos">estrela</field>
+		<field name="numPontos">50</field>
+	</row>
+
+	<row>
+		<field name="regId">2</field>
+		<field name="usuario">joana</field>
+		<field name="tipoPontos">estrela</field>
+		<field name="numPontos">50</field>
+	</row>
+
+	<row>
+		<field name="regId">3</field>
+		<field name="usuario">joana</field>
+		<field name="tipoPontos">comentarios</field>
+		<field name="numPontos">80</field>
+	</row>
+
+	<row>
+		<field name="regId">4</field>
+		<field name="usuario">joana</field>
+		<field name="tipoPontos">energia</field>
+		<field name="numPontos">130</field>
+	</row>
+
+	<row>
+		<field name="regId">5</field>
+		<field name="usuario">joana</field>
+		<field name="tipoPontos">curtida</field>
+		<field name="numPontos">58</field>
+	</row>
+
+	<row>
+		<field name="regId">6</field>
+		<field name="usuario">joana</field>
+		<field name="tipoPontos">moeda</field>
+		<field name="numPontos">132</field>
+	</row>
+
+	<row>
+		<field name="regId">7</field>
+		<field name="usuario">joana</field>
+		<field name="tipoPontos">estrela</field>
+		<field name="numPontos">10</field>
+	</row>
+
+	<row>
+		<field name="regId">8</field>
+		<field name="usuario">joana</field>
+		<field name="tipoPontos">estrela</field>
+		<field name="numPontos">-40</field>
+	</row>
+
+	<row>
+		<field name="regId">9</field>
+		<field name="usuario">joana</field>
+		<field name="tipoPontos">vidadupla</field>
+		<field name="numPontos">120</field>
+	</row>
+
+	<row>
+		<field name="regId">10</field>
+		<field name="usuario">gabriela</field>
+		<field name="tipoPontos">estrela</field>
+		<field name="numPontos">50</field>
+	</row>
+
+	<row>
+		<field name="regId">11</field>
+		<field name="usuario">gabriela</field>
+		<field name="tipoPontos">estrela</field>
+		<field name="numPontos">100</field>
+	</row>
+
+	<row>
+		<field name="regId">12</field>
+		<field name="usuario">gabriela</field>
+		<field name="tipoPontos">estrela</field>
+		<field name="numPontos">-140</field>
+	</row>
+
+	<row>
+		<field name="regId">13</field>
+		<field name="usuario">alfredo</field>
+		<field name="tipoPontos">vida</field>
+		<field name="numPontos">20</field>
+	</row>
+
+	<row>
+		<field name="regId">14</field>
+		<field name="usuario">alfredo</field>
+		<field name="tipoPontos">curtida</field>
+		<field name="numPontos">45</field>
+	</row>
+
+	<row>
+		<field name="regId">15</field>
+		<field name="usuario">alfredo</field>
+		<field name="tipoPontos">moeda</field>
+		<field name="numPontos">30</field>
+	</row>
+
+	<row>
+		<field name="regId">16</field>
+		<field name="usuario">sebastiao</field>
+		<field name="tipoPontos">vida</field>
+		<field name="numPontos">19</field>
+	</row>
+
+	<row>
+		<field name="regId">17</field>
+		<field name="usuario">sebastiao</field>
+		<field name="tipoPontos">vida</field>
+		<field name="numPontos">20</field>
+	</row>
+
+	<row>
+		<field name="regId">18</field>
+		<field name="usuario">xeila</field>
+		<field name="tipoPontos">energia</field>
+		<field name="numPontos">30</field>
+	</row>
+
+	<row>
+		<field name="regId">19</field>
+		<field name="usuario">maristela</field>
+		<field name="tipoPontos">curtida</field>
+		<field name="numPontos">28</field>
+	</row>
+
+	<row>
+		<field name="regId">20</field>
+		<field name="usuario">cristina</field>
+		<field name="tipoPontos">moeda</field>
+		<field name="numPontos">44</field>
+	</row>
+
+	<row>
+		<field name="regId">21</field>
+		<field name="usuario">cristina</field>
+		<field name="tipoPontos">estrela</field>
+		<field name="numPontos">100</field>
+	</row>
+
+	<row>
+		<field name="regId">22</field>
+		<field name="usuario">antonieta</field>
+		<field name="tipoPontos">vida</field>
+		<field name="numPontos">-50</field>
+	</row>
+</resultset>

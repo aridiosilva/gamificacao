@@ -1,0 +1,134 @@
+[
+	{
+		"regId" : 1,
+		"usuario" : "joana",
+		"tipoPontos" : "estrela",
+		"numPontos" : "50"
+	},
+	{
+		"regId" : 2,
+		"usuario" : "joana",
+		"tipoPontos" : "estrela",
+		"numPontos" : "50"
+	},
+	{
+		"regId" : 3,
+		"usuario" : "joana",
+		"tipoPontos" : "comentarios",
+		"numPontos" : "80"
+	},
+	{
+		"regId" : 4,
+		"usuario" : "joana",
+		"tipoPontos" : "energia",
+		"numPontos" : "130"
+	},
+	{
+		"regId" : 5,
+		"usuario" : "joana",
+		"tipoPontos" : "curtida",
+		"numPontos" : "58"
+	},
+	{
+		"regId" : 6,
+		"usuario" : "joana",
+		"tipoPontos" : "moeda",
+		"numPontos" : "132"
+	},
+	{
+		"regId" : 7,
+		"usuario" : "joana",
+		"tipoPontos" : "estrela",
+		"numPontos" : "10"
+	},
+	{
+		"regId" : 8,
+		"usuario" : "joana",
+		"tipoPontos" : "estrela",
+		"numPontos" : "-40"
+	},
+	{
+		"regId" : 9,
+		"usuario" : "joana",
+		"tipoPontos" : "vidadupla",
+		"numPontos" : "120"
+	},
+	{
+		"regId" : 10,
+		"usuario" : "gabriela",
+		"tipoPontos" : "estrela",
+		"numPontos" : "50"
+	},
+	{
+		"regId" : 11,
+		"usuario" : "gabriela",
+		"tipoPontos" : "estrela",
+		"numPontos" : "100"
+	},
+	{
+		"regId" : 12,
+		"usuario" : "gabriela",
+		"tipoPontos" : "estrela",
+		"numPontos" : "-140"
+	},
+	{
+		"regId" : 13,
+		"usuario" : "alfredo",
+		"tipoPontos" : "vida",
+		"numPontos" : "20"
+	},
+	{
+		"regId" : 14,
+		"usuario" : "alfredo",
+		"tipoPontos" : "curtida",
+		"numPontos" : "45"
+	},
+	{
+		"regId" : 15,
+		"usuario" : "alfredo",
+		"tipoPontos" : "moeda",
+		"numPontos" : "30"
+	},
+	{
+		"regId" : 16,
+		"usuario" : "sebastiao",
+		"tipoPontos" : "vida",
+		"numPontos" : "19"
+	},
+	{
+		"regId" : 17,
+		"usuario" : "sebastiao",
+		"tipoPontos" : "vida",
+		"numPontos" : "20"
+	},
+	{
+		"regId" : 18,
+		"usuario" : "xeila",
+		"tipoPontos" : "energia",
+		"numPontos" : "30"
+	},
+	{
+		"regId" : 19,
+		"usuario" : "maristela",
+		"tipoPontos" : "curtida",
+		"numPontos" : "28"
+	},
+	{
+		"regId" : 20,
+		"usuario" : "cristina",
+		"tipoPontos" : "moeda",
+		"numPontos" : "44"
+	},
+	{
+		"regId" : 21,
+		"usuario" : "cristina",
+		"tipoPontos" : "estrela",
+		"numPontos" : "100"
+	},
+	{
+		"regId" : 22,
+		"usuario" : "antonieta",
+		"tipoPontos" : "vida",
+		"numPontos" : "-50"
+	}
+]

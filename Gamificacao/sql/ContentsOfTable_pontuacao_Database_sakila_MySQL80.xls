@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+xmlns:html="http://www.w3.org/TR/REC-html40">
+<Worksheet ss:Name="Table1">
+	<Table>
+		<Column ss:Index="2" ss:AutoFitWidth="0" ss:Width="110"/>
+		<Column ss:Index="3" ss:AutoFitWidth="0" ss:Width="110"/>
+		<Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="110"/>
+		<Row>
+			<Cell><Data ss:Type="String">regId</Data></Cell>
+			<Cell><Data ss:Type="String">usuario</Data></Cell>
+			<Cell><Data ss:Type="String">tipoPontos</Data></Cell>
+			<Cell><Data ss:Type="String">numPontos</Data></Cell>
+		</Row>
+
+		<Row>
+			<Cell><Data ss:Type="Number">1</Data></Cell>
+			<Cell><Data ss:Type="String">joana</Data></Cell>
+			<Cell><Data ss:Type="String">estrela</Data></Cell>
+			<Cell><Data ss:Type="String">50</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">2</Data></Cell>
+			<Cell><Data ss:Type="String">joana</Data></Cell>
+			<Cell><Data ss:Type="String">estrela</Data></Cell>
+			<Cell><Data ss:Type="String">50</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">3</Data></Cell>
+			<Cell><Data ss:Type="String">joana</Data></Cell>
+			<Cell><Data ss:Type="String">comentarios</Data></Cell>
+			<Cell><Data ss:Type="String">80</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">4</Data></Cell>
+			<Cell><Data ss:Type="String">joana</Data></Cell>
+			<Cell><Data ss:Type="String">energia</Data></Cell>
+			<Cell><Data ss:Type="String">130</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">5</Data></Cell>
+			<Cell><Data ss:Type="String">joana</Data></Cell>
+			<Cell><Data ss:Type="String">curtida</Data></Cell>
+			<Cell><Data ss:Type="String">58</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">6</Data></Cell>
+			<Cell><Data ss:Type="String">joana</Data></Cell>
+			<Cell><Data ss:Type="String">moeda</Data></Cell>
+			<Cell><Data ss:Type="String">132</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">7</Data></Cell>
+			<Cell><Data ss:Type="String">joana</Data></Cell>
+			<Cell><Data ss:Type="String">estrela</Data></Cell>
+			<Cell><Data ss:Type="String">10</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">8</Data></Cell>
+			<Cell><Data ss:Type="String">joana</Data></Cell>
+			<Cell><Data ss:Type="String">estrela</Data></Cell>
+			<Cell><Data ss:Type="String">-40</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">9</Data></Cell>
+			<Cell><Data ss:Type="String">joana</Data></Cell>
+			<Cell><Data ss:Type="String">vidadupla</Data></Cell>
+			<Cell><Data ss:Type="String">120</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">10</Data></Cell>
+			<Cell><Data ss:Type="String">gabriela</Data></Cell>
+			<Cell><Data ss:Type="String">estrela</Data></Cell>
+			<Cell><Data ss:Type="String">50</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">11</Data></Cell>
+			<Cell><Data ss:Type="String">gabriela</Data></Cell>
+			<Cell><Data ss:Type="String">estrela</Data></Cell>
+			<Cell><Data ss:Type="String">100</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">12</Data></Cell>
+			<Cell><Data ss:Type="String">gabriela</Data></Cell>
+			<Cell><Data ss:Type="String">estrela</Data></Cell>
+			<Cell><Data ss:Type="String">-140</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">13</Data></Cell>
+			<Cell><Data ss:Type="String">alfredo</Data></Cell>
+			<Cell><Data ss:Type="String">vida</Data></Cell>
+			<Cell><Data ss:Type="String">20</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">14</Data></Cell>
+			<Cell><Data ss:Type="String">alfredo</Data></Cell>
+			<Cell><Data ss:Type="String">curtida</Data></Cell>
+			<Cell><Data ss:Type="String">45</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">15</Data></Cell>
+			<Cell><Data ss:Type="String">alfredo</Data></Cell>
+			<Cell><Data ss:Type="String">moeda</Data></Cell>
+			<Cell><Data ss:Type="String">30</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">16</Data></Cell>
+			<Cell><Data ss:Type="String">sebastiao</Data></Cell>
+			<Cell><Data ss:Type="String">vida</Data></Cell>
+			<Cell><Data ss:Type="String">19</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">17</Data></Cell>
+			<Cell><Data ss:Type="String">sebastiao</Data></Cell>
+			<Cell><Data ss:Type="String">vida</Data></Cell>
+			<Cell><Data ss:Type="String">20</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">18</Data></Cell>
+			<Cell><Data ss:Type="String">xeila</Data></Cell>
+			<Cell><Data ss:Type="String">energia</Data></Cell>
+			<Cell><Data ss:Type="String">30</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">19</Data></Cell>
+			<Cell><Data ss:Type="String">maristela</Data></Cell>
+			<Cell><Data ss:Type="String">curtida</Data></Cell>
+			<Cell><Data ss:Type="String">28</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">20</Data></Cell>
+			<Cell><Data ss:Type="String">cristina</Data></Cell>
+			<Cell><Data ss:Type="String">moeda</Data></Cell>
+			<Cell><Data ss:Type="String">44</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">21</Data></Cell>
+			<Cell><Data ss:Type="String">cristina</Data></Cell>
+			<Cell><Data ss:Type="String">estrela</Data></Cell>
+			<Cell><Data ss:Type="String">100</Data></Cell>
+		</Row>
+		<Row>
+			<Cell><Data ss:Type="Number">22</Data></Cell>
+			<Cell><Data ss:Type="String">antonieta</Data></Cell>
+			<Cell><Data ss:Type="String">vida</Data></Cell>
+			<Cell><Data ss:Type="String">-50</Data></Cell>
+		</Row>	</Table>
+</Worksheet>
+</Workbook>
