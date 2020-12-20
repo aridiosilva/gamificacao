@@ -251,7 +251,7 @@ public class ArmazenamentoMySQLTest {
 		assertEquals (true,_tiposDePontos.contains("vidadupla"));
 		assertEquals (true,_tiposDePontos.contains("comentarios"));
 
-		// Remover o arquivo TXT p/possibilitar rodar quantas vezes desejar a BATERIA-TESTES UNITÁRIOS 
+		// truncar o conteudo da tabela pontuacap p/possibilitar rodar quantas vezes desejar a BATERIA-TESTES UNITÁRIOS 
 		// e de INTEGRAÇÃO
 
 
