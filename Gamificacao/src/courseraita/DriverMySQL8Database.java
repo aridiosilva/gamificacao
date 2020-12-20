@@ -12,8 +12,7 @@ public class DriverMySQL8Database implements IDriverArquivo {
 	private DatabaseMetaData md;
 	private static boolean firstTime = true;
 	
-	public DriverMySQL8Database (boolean deletarFile) throws Exception {
-		
+	public DriverMySQL8Database (boolean deletarFile) throws Exception {		
 		if (deletarFile) {
 			try {
 				emptyTablePontuacao();
@@ -23,25 +22,21 @@ public class DriverMySQL8Database implements IDriverArquivo {
 			} 
 		}
 	}
-
 	@Override
 	public LinkedList<PontuacaoUsuarios> cargaEmCacheApartirArquivo() throws Exception {
 		
 		LinkedList<PontuacaoUsuarios> _pontuacaoCache = new LinkedList<PontuacaoUsuarios>();
 		try {
 			preparaConexaoComDatabase();
-			veSeTabelaPontuacaoJaExiste();
-			
-			String sqlSelectCmd = "SELECT * FROM pontuacao ORDER BY regID ASC";
+			veSeTabelaPontuacaoJaExiste();			
+			String sqlSelectCmd = "SELECT * FROM pontuacao ORDER BY regId ASC";
 			rs = stmt.executeQuery(sqlSelectCmd);
 			int numRegsLidos = 0;
-			while (rs.next() ) {
-				
+			while (rs.next() ) {				
 				_pontuacaoCache.add(new PontuacaoUsuarios( 
 						rs.getNString("usuario"),
 						rs.getNString("tipoPontos"),
-						Integer.parseInt(rs.getNString("numPontos"))));
-				
+						Integer.parseInt(rs.getNString("numPontos"))));				
 				numRegsLidos++;
 			}
 			con.close();
@@ -54,26 +49,20 @@ public class DriverMySQL8Database implements IDriverArquivo {
 			throw new Exception ("Problema em I/o na Tabela Pontuacao Database MySQL");
 		}
 		return _pontuacaoCache; 
-	}
- 
+	} 
 	@Override
 	public void persisteDadosNoArquivo(PontuacaoUsuarios p) 
 			         throws SQLException, ClassNotFoundException {		
 		try { 
 			preparaConexaoComDatabase();			
 			veSeTabelaPontuacaoJaExiste();
-			
-			// INSERT	INTO pontuacao (usuario, tipoPontos, numPontos) VALUES ("maria","sobrevida","30");
-			
 			String sqlCmdInsercaoNoDatabase = 
 					"INSERT INTO pontuacao (usuario,tipoPontos,numPontos) VALUES ('" +
 					p.getUsuario() + "','" + p.getTipoPonto() + "','" +
-					String.valueOf(p.getPontos()) + "')";
-			
+					String.valueOf(p.getPontos()) + "')";			
 			System.out.println("===> " + "INSERT INTO pontuacao (usuario,tipoPontos, numPontos) VALUES ('" +
 					p.getUsuario() + "','" + p.getTipoPonto() + "','" +
-					String.valueOf(p.getPontos()) + "')");
-			
+					String.valueOf(p.getPontos()) + "')");			
 			stmt.executeUpdate(sqlCmdInsercaoNoDatabase);
 			con.close();
 		} 
@@ -81,13 +70,11 @@ public class DriverMySQL8Database implements IDriverArquivo {
 			System.out.println(ioe); 
 			System.out.println("problema em persistir a nova pontuacao no Database");
 		} 
-    }
-	
+    }	
 	@Override
 	public void deleteArquivo() throws Exception {
 		emptyTablePontuacao();
 	}
-	
 	private void veSeTabelaPontuacaoJaExiste() throws SQLException {
 		try{
 			String sqlCmdCreate =
@@ -99,13 +86,11 @@ public class DriverMySQL8Database implements IDriverArquivo {
 					"PRIMARY KEY (regID))";			
 			stmt.executeUpdate(sqlCmdCreate);
 
-		} catch (SQLException e){			
-		
+		} catch (SQLException e){
 			System.out.print(e);
 			System.out.println("problema na Criação da tabela de pontuacao");
 		}		
 	}
-
 	private void emptyTablePontuacao() throws Exception {
 		try{
 			preparaConexaoComDatabase();	
@@ -118,17 +103,9 @@ public class DriverMySQL8Database implements IDriverArquivo {
 			System.out.println("problema no TRUNCATE da tabela de pontuacao");
 		}
 	}
-
 	private void getSomeMetaDataDoDatabase() throws SQLException {
-		
 		if (firstTime) {
-			
-			firstTime = false;
-			
-			 // get the metadata
 			 md = con.getMetaData();  
-			 
-			 // ask some questions
 			 System.out.println("DatabaseProductName: " +  md.getDatabaseProductName() );
 			 System.out.println("DatabaseProductVersion(: " +  md.getDatabaseProductVersion());
 			 System.out.println("DriverName: " +  md.getDriverName());
@@ -148,20 +125,9 @@ public class DriverMySQL8Database implements IDriverArquivo {
 			 System.out.println("ResultSet.TYPE_SCROLL_SENSITIVE: " +  md.supportsResultSetType(ResultSet.TYPE_SCROLL_SENSITIVE));
 			 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.insertsAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
 			 System.out.println("ResultSet.TYPE_SCROLL_INSENSITIVE: " +  md.updatesAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
-//			 rm = con.getSchema();
-//			 int cc = rm.getColumnCount();                  // number of columns
-//		     for (int i = 1; i <= cc; i++)  {               // i-th column
-//		    	 System.out.println('\n'+ rm.getColumnName(i));           // - name
-//		    	 System.out.println(" " + rm.getColumnDisplaySize(i));    // - size
-//		    	 System.out.println(" " + rm.getColumnClassName(i));      // - Jaca class name
-//		    	 System.out.println(" " + rm.getColumnType(i));           // - SQL type
-//		    	 System.out.println(" " + rm.getColumnTypeName(i));       // - RDBMS type
-//		     }			
+			 firstTime = false;			
 		}
-		
-
 	}
-	
 	private void preparaConexaoComDatabase ()
 			throws ClassNotFoundException, SQLException {
 
